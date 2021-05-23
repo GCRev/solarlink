@@ -1,0 +1,219 @@
+.app > .solar-grid {
+  display: grid;
+  grid-template:  "left tl tl solar solar tr tr " 1fr
+                  "left tl tl solar solar tr tr " 1fr
+                  "left grid grid center center load load" 1fr
+                  "left grid grid center center load load" 1fr
+                  "left bl bl battery battery br br" 1fr 
+                  "left bl bl battery battery br br" 1fr / 1% 1fr 1fr 1fr 1fr 1fr 1fr;
+  justify-items: stretch;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+  /* display: flex; */
+}
+
+path, ellipse, line, polyline, polygon {
+  vector-effect: non-scaling-stroke;
+}
+
+.solar-grid > div.monitors {
+  position: relative;
+  grid-area: 1 / 2 / 8 / 8;
+}
+
+.solar-grid .percent-bar {
+  height: 100%;
+  width: 100%;
+  background-color: var(--lt-green);
+  border-right: 3px solid var(--green);
+  grid-area: left;
+  align-self: end;
+  /* transition: height 0.2s; */
+}
+
+.monitor {
+  --col: var(--lt-grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  color: var(--col);
+  position: relative;
+  z-index: 50;
+  transform-origin: top left;
+  position: absolute;
+  transition: all 800ms var(--ease-out);
+}
+
+.solar-grid.show-graph .monitor {
+  height: 25%;
+  width: 20%;
+}
+
+.solar {
+  --col: var(--lt-yellow);
+}
+
+.monitor.solar {
+  /* grid-area: solar; */
+  height: 33.33%;
+  width: 33.33%;
+  transform: translate3d(100%, 0, 0);
+}
+
+.solar-grid.show-graph .monitor.solar {
+  transform: translate3d(0, 0, 0);
+}
+
+.battery {
+  --col: var(--lt-green);
+}
+
+.monitor.battery {
+  /* grid-area: battery; */
+  height: 33.33%;
+  width: 33.33%;
+  transform: translate3d(100%, 200%, 0);
+}
+
+.solar-grid.show-graph .monitor.battery {
+  transform: translate3d(0, 300%, 0);
+}
+
+.load {
+  --col: var(--lt-blue);
+}
+
+.monitor.load {
+  /* grid-area: load; */
+  height: 33.33%;
+  width: 33.33%;
+  transform: translate3d(200%, 100%, 0);
+}
+
+.solar-grid.show-graph .monitor.load {
+  transform: translate3d(0, 100%, 0);
+}
+
+.site {
+  --col: var(--grey);
+}
+
+.monitor.site {
+  /* grid-area: grid; */
+  height: 33.33%;
+  width: 33.33%;
+  transform: translate3d(0, 100%, 0);
+}
+
+.solar-grid.show-graph .monitor.site {
+  transform: translate3d(0, 200%, 0);
+}
+
+.graph-channel.site {
+  --col: var(--grey-s);
+}
+
+.graph-channel.solar {
+  --col: var(--lt-yellow-s);
+}
+
+.graph-channel.battery {
+  --col: var(--lt-green-s);
+}
+
+.graph-channel.load {
+  --col: var(--lt-blue-s);
+}
+
+.graph-channel.percentage {
+  --col: var(--turq-s);
+}
+
+.percentage {
+  --col: var(--turq);
+}
+
+.monitor > .data-label {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+  font-weight: bold;
+  width: 84px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, 8px, 0);
+}
+
+.monitor > .icon {
+  stroke: var(--col);
+  fill: var(--slt-grey);
+  box-shadow: 0 0 12px 0 var(--col);
+  /* transition: box-shadow 0.9s, height 0.4s, width 0.4s; */
+  stroke-linecap: round;
+}
+
+.power-route {
+  position: relative;
+  justify-self: stretch;
+  align-self: stretch;
+  margin: 6px;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  transition: opacity 400ms;
+  transition-delay: 700ms;
+  pointer-events: none;
+}
+
+.solar-grid.show-graph .power-route {
+  transition: opacity 100ms;
+}
+
+.solar-grid.show-graph .power-route, .power-route.hidden {
+  opacity: 0;
+  transition-delay: 0ms;
+} 
+
+.power-route svg {
+  fill: none;
+  stroke: black;
+  stroke-width: 3px;
+  width: 100%;
+  height: 100%;
+  stroke-dasharray: 34 6;
+  stroke-linecap: round;
+}
+
+@keyframes anim-connector{
+  0% {
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.power-route.site-solar {
+  grid-area: 2 / 3 / 4 / 5;
+  animation: anim-connector 0.6s linear infinite;
+}
+.power-route.solar-load {
+  grid-area: 2 / 5 / 4 / 7;
+  animation: anim-connector 0.6s linear infinite;
+}
+.power-route.battery-load {
+  grid-area: 4 / 5 / 6 / 7;
+  animation: anim-connector 0.6s linear infinite;
+}
+.power-route.site-load {
+  grid-area: 3 / 3 / 5 / 7;
+  animation: anim-connector 0.6s linear infinite;
+}
+.power-route.solar-battery{
+  grid-area: 2 / 4 / 6 / 6;
+  animation: anim-connector 0.6s linear infinite;
+}

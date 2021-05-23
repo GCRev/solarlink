@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Solarlink
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A webapp for visualizing the power routing / usage over time of a Tesla Powerwall
 
-## Available Scripts
+# Setup
 
-In the project directory, you can run:
+## Hardware
 
-### `npm start`
+* I recommend using an SBC (Single Board Computer). I have only tested this on Ubuntu, but I imagine
+  any linux distro would work.
+* Clone the repo onto the SBC like a Raspberry Pi with both an ethernet and
+  wifi interface.
+* Connect the SBC directly to the Powerwall's ethernet port. The Powerwall prioritizes ethernet
+  connections over wifi and cellular.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Software
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* Configure the Powerwall to have a static IP in the Powerwall's network settings. I have mine
+  configured to `192.168.89.10` through the `192.168.89.1` gateway
+* Install nodejs (latest version) + npm on the SBC
+* run `npm install -g pm2@latest` to install Process Manager 2, which runs the server as a service
+* The rules.v4 file contains the iptables configuration required to forward traffic from the
+  Powerwall to the server, as well as masquerade for the Powerwall to connect to the outside
+  internet. Use `iptables-restore < rules.v4` to copy the rules to the iptables rules file. Use
+  `iptables save` to ensure the rules persist across restarts.
+* The 50-cloud-init.yaml file contains the netplan configuration I use for my own server. The server
+  connects to your wifi network to allow you to access it on your devices on the same network.
+  Configure this file however you like to suit your needs.
+* run `pm2 start ecosystem.config.js` to daemonize the server process -- _note that pm2@latest must
+  be installed for ES6 module support_
 
-### `npm test`
+## Notes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This program caches your login credentials for re-use, and does so **in the clear.**  Since your
+server should be locked down anyway, this should not be a terrible issue. The Powerwall credentials
+are also local-only, and do not reflect any real-life passwords or usernames. 
 
-### `npm run build`
+The config.json and log files can be found at the following directories for the following
+architectures:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* macOS: ~/Library/Application Support/SolarLink
+* Windows: %LOCALAPPDATA%\SolarLink\Data (for example, C:\Users\USERNAME\AppData\Local\SolarLink\Data)
+* Linux: ~/.local/share/SolarLink (or $XDG_DATA_HOME/SolarLink)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

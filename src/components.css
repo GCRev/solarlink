@@ -1,0 +1,46 @@
+sl-text-field, sl-label {
+  display: block;
+}
+
+sl-text-field {
+  position: relative;
+  padding: 0.2em 0;
+}
+
+sl-text-field > input {
+  width: 100%;
+  height: 2em;
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid var(--lt-grey);
+  padding: 0.3em 0.5em;
+  border-radius: 3px;
+  margin-top: 0.2em;
+  transition: border-color 0.1s;
+}
+
+sl-text-field > input:focus {
+  border: 2px solid var(--lt-blue);
+}
+
+.MuiButton-root.sl-button {
+  background-color: var(--lt-blue);
+}
+
+.MuiButton-root.sl-button:hover {
+  background-color: var(--d-blue);
+}
+
+.icon {
+  stroke-width: 3px;
+  stroke: black;
+  fill: none;
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+
+}
+
+.MuiToolbar-root.stretch-toolbar {
+  display: flex;
+}

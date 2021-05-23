@@ -1,0 +1,131 @@
+.solar-graph.MuiPaper-root {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  bottom: 1em;
+  width: calc(80% - 1em);
+  border-radius: 1em;
+  background: var(--slt-grey);
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.solar-graph.solar-graph-enter {
+  opacity: 0;
+  right: 0;
+  transform: translate3d(100%, 0, 0)
+}
+
+.solar-graph.solar-graph-enter-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  right: 1em;
+  transition: all 800ms var(--ease-out), opacity 100ms;
+}
+
+.solar-graph.solar-graph-exit {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  right: 1em;
+}
+
+.solar-graph.solar-graph-exit-active {
+  opacity: 0;
+  right: 0;
+  transform: translate3d(100%, 0, 0);
+  transition: all 800ms var(--ease-out), opacity 100ms ease 700ms;
+} 
+
+.graph {
+  border-radius: 4px;
+}
+
+.solar-graph .inspector {
+  --left-offset: 1em;
+  --left-tran-offset: 0;
+}
+
+.solar-graph .inspector.MuiCard-root {
+  pointer-events: none;
+  border-radius: 8px;
+  position: absolute;
+  top: 1em;
+  min-width: 45ch;
+  left: var(--left-offset);
+  transform: translate3d(var(--left-tran-offset), 0, 0);
+  transition: transform 500ms var(--ease-out), left 500ms var(--ease-out);
+}
+
+.solar-graph .inspector.right {
+  --left-offset: calc(100% - 1em);
+  --left-tran-offset: -100%;
+}
+
+.solar-graph .inspector.inspector-enter {
+  opacity: 0;
+  transform: translate3d(var(--left-tran-offset), 0.4em, 0)
+}
+
+.solar-graph .inspector.inspector-enter-active {
+  opacity: 1;
+  transform: translate3d(var(--left-tran-offset), 0, 0);
+  transition: all 300ms var(--ease-out), opacity 100ms;
+}
+
+.solar-graph .inspector.inspector-exit {
+  opacity: 1;
+  transform: translate3d(var(--left-tran-offset), 0, 0);
+}
+
+.solar-graph .inspector.inspector-exit-active {
+  opacity: 0;
+  transform: translate3d(var(--left-tran-offset), 0.4em, 0);
+  transition: all 300ms var(--ease-out);
+} 
+
+.solar-graph .inspector div.group {
+  margin-bottom: 1rem;
+  padding: 1em;
+  background-color: var(--slt-grey);
+  font-size: 1.5rem;
+}
+
+.solar-graph .inspector div.group:last-child {
+  margin: 0;
+}
+
+.solar-graph .inspector .group table {
+  width: 100%
+}
+
+.solar-graph .inspector .group td.value {
+  text-align: right
+}
+
+.solar-graph .MuiToolbar-root {
+  align-items: stretch;
+  padding: 0;
+}
+
+.solar-graph .MuiToolbar-root .MuiButton-root.channel-button {
+  flex: 1;
+  color: var(--col);
+  font-size: 1.2rem;
+  transition: background-color 200ms, color 200ms;
+  border-radius: 0;
+}
+
+.solar-graph .MuiToolbar-root .MuiButton-root.channel-button:first-child {
+  border-radius: 0 0 0 6px;
+}
+
+.solar-graph .MuiToolbar-root .MuiButton-root.channel-button:last-child {
+  border-radius: 0 0 6px 0;
+}
+
+.solar-graph .MuiToolbar-root .MuiButton-root.channel-button.enabled {
+  background-color: var(--col);
+  color: white;
+  transition: background-color 200ms, color 200ms;
+}

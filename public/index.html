@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <title>SolarLink</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: 0; pointer-events: none;">
+      <!-- this has to be here because no one supports refs to linear-gradients in externally-loaded files FML --!>
+      <defs>
+        <linearGradient id="solar-site-grad" y1="100%" y2="0%">
+          <stop offset="20%" style="stop-color: var(--grey);"/>
+          <stop offset="80%" style="stop-color: var(--lt-yellow);"/>
+        </linearGradient>
+        <linearGradient id="solar-load-grad" y1="0%" y2="100%">
+          <stop offset="20%" style="stop-color: var(--lt-yellow);"/>
+          <stop offset="80%" style="stop-color: var(--lt-blue);"/>
+        </linearGradient>
+        <linearGradient id="battery-load-grad" y1="100%" y2="0%">
+          <stop offset="20%" style="stop-color: var(--lt-green);"/>
+          <stop offset="80%" style="stop-color: var(--lt-blue);"/>
+        </linearGradient>
+        <linearGradient id="site-load-grad">
+          <stop offset="30%" style="stop-color: var(--grey);"/>
+          <stop offset="70%" style="stop-color: var(--lt-blue);"/>
+        </linearGradient>
+        <linearGradient id="solar-battery-grad" x1="0%" x2="0%" y2="100%">
+          <stop offset="30%" style="stop-color: var(--lt-yellow);"/>
+          <stop offset="70%" style="stop-color: var(--lt-green);"/>
+        </linearGradient>
+      </defs>
+      <symbol viewBox="4 4 112 112" id="solar-icon">
+        <circle cx="60" cy="60" r="55"/>
+        <circle fill="none" cx="60" cy="40" r="9"/>
+        <path class="ray" fill="none" d="M60 26l0 -8"/>
+        <path class="ray" fill="none" d="M60 54l0 8"/>
+        <path class="ray" fill="none" d="M72 33l7 -5"/>
+        <path class="ray" fill="none" d="M72 47l7 5"/>
+        <path class="ray" fill="none" d="M48 33l-7 -5"/>
+        <path class="ray" fill="none" d="M48 47l-7 5"/>
+      </symbol>
+      <symbol viewBox="4 4 112 112" id="site-icon">
+        <circle cx="60" cy="60" r="55"/>
+        <path fill="none" d="M52 21v38"/>
+        <path fill="none" d="M68 21v38"/>
+        <path fill="none" d="M41 32h38"/>
+        <path fill="none" d="M41 48h38"/>
+      </symbol>
+      <symbol viewBox="4 4 112 112" id="battery-icon">
+        <circle cx="60" cy="60" r="55"/>
+        <path fill="none" d="M42 32h36a2 2 0 0 1 2 2v16a2 2 0 0 1 -2 2h-36a2 2 0 0 1 -2 -2v-16a2 2 0 0 1 2 -2z"/>
+        <path fill="none" d="M84 38v8"/>
+      </symbol>
+      <symbol viewBox="4 4 112 112" id="load-icon">
+        <circle cx="60" cy="60" r="55"/>
+        <path fill="none" d="M42 40L60 26L78 40"/>
+        <path fill="none" d="M48 40V56H72V40"/>
+      </symbol>
+      <symbol viewBox="0 0 48 48" id="down-arrow">
+        <path d="M24 12L24 35" pathLength="20"/>
+        <path d="M16 28L24 36" pathLength="20"/>
+        <path d="M32 28L24 36" pathLength="20"/>
+      </symbol>
+      <symbol viewBox="0 0 48 48" id="icon-square">
+        <rect x="14" y="14" width="20" height="20" fill="none"/>
+      </symbol>
+      <symbol viewBox="0 0 32 32" id="icon-dropdown-arrow">
+        <path d="M10 14L16 19L22 14"/>
+      </symbol>
+    </svg>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script src="main.js"></script>
   </body>
 </html>

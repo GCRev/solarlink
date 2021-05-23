@@ -1,17 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './app'
+import SolarLinkClient from './client/solar_link_client'
+
+const solarLinkClient = new SolarLinkClient()
+window.solarLinkClient = solarLinkClient
+
+/* 
+ * attempt to log on immediately
+ * server will use stored credentials if they exist
+ */
+solarLinkClient.logon()
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App solarLinkClient={ solarLinkClient }/>
   </React.StrictMode>,
   document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+)
